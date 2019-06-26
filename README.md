@@ -1,25 +1,33 @@
 # terraform-aws-autoshutoff
 
-This Terraform plan is used to create an AWS Lambda function that stops running EC2 instances across all regions on a
-scheduled basis.
+This Terraform module stops running EC2 instances nightly across all regions, helping prevent surprise bills.  It will
+create the Lambda function, an IAM role, the IAM role policies, a CloudWatch schedule/trigger, and a CloudWatch log
+group.
 
-It will create the Lambda function, an IAM role, the IAM role policies, a CloudWatch schedule/trigger, and a CloudWatch
-log group.
+## Usage
 
-## Scheduling
+Ensure that there is a valid configuration for the
+[AWS provider](https://www.terraform.io/docs/providers/aws/index.html) in your root module, then add the following:
 
-* The default schedule is daily at 0400 UTC and there is a `shutoff_time` variable that may be used to adjust this
-  schedule.
-* The format for the `shutoff_time` variable is in `cron` format.  Examples may be found in the
+```terraform
+module "autoshutoff" {
+  source  = "https://github.com/mrichardson03/terraform-aws-autoshutoff.git"
+}
+```
+
+Instances you wish to exempt from the automatic shut off should be tagged with `AutoShutOff = false` (configurable
+via `shutoff_tag_name` and `shutoff_tag_value`).
+
+## Configuration
+
+* `lambda_function_name`: The name of the created Lambda function.  Default is `AutoShutOff`.
+* `shutoff_tag_name`: Tag name for instances exempt from automatic shutdown.  Default is `AutoShutOff`.
+* `shutoff_tag_value`: Tag value for instances exempt from automatic shutdown.  Default is `false`.
+* `shutoff_time`: Cron format expression for auto shutoff time. Default is `cron(0 4 * * ? *)`, or 0400 UTC.
+  Formatting examples may be found in the
   [AWS Documentation](https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html).
+* `tags`: A map of tags to apply to all created resources.
 
-## Exemptions
+## Releases
 
-* Instance you wish to exempt from the schedule may be marked with a tag name `AutoShutOff` and value of `false`.
-* The tag name and value variables may be overridden in the `variables.tf` file.
-
-## Execution
-
-* You must have defined credentials and the appropriate permissions in AWS in order to apply this Terraform plan.
-* The environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` may be used or a properly configured
-  AWS CLI instance.
+* 0.1: Initial release.
