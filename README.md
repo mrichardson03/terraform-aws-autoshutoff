@@ -11,7 +11,7 @@ Ensure that there is a valid configuration for the
 
 ```terraform
 module "autoshutoff" {
-  source  = "https://github.com/mrichardson03/terraform-aws-autoshutoff.git"
+  source  = "github.com/mrichardson03/terraform-aws-autoshutoff.git"
 }
 ```
 
