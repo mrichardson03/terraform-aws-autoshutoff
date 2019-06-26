@@ -29,11 +29,6 @@ variable "shutoff_tag_value" {
   default     = "false"
 }
 
-variable "aws_region" {
-  description = "The AWS region in which to deploy."
-  default     = "us-west-2"
-}
-
 variable "shutoff_time" {
   description = "Crontab expression for when (in UTC) to run the Lambda function."
   default     = "cron(0 4 * * ? *)"

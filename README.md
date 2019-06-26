@@ -10,7 +10,7 @@ log group.
 
 * The default schedule is daily at 0400 UTC and there is a `shutoff_time` variable that may be used to adjust this
   schedule.
-* The format for the `shutoff_time` variable is in `cron` format.  Examples may be found in the 
+* The format for the `shutoff_time` variable is in `cron` format.  Examples may be found in the
   [AWS Documentation](https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html).
 
 ## Exemptions

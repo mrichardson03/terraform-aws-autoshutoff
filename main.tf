@@ -14,12 +14,6 @@
 # limitations under the License.
 ############################################################################################
 
-// Initialize the AWS provider
-provider "aws" {
-  region  = "${var.aws_region}"
-  version = "2.12"
-}
-
 // Source Python script for the Lambda function
 data "archive_file" "lambda_zip" {
   type        = "zip"
