@@ -33,7 +33,7 @@ def lambda_handler(event, context):
     ]
 
     for region in ec2_regions:
-        ec2 = boto3.resource('ec2',region_name=region)
+        ec2 = boto3.resource('ec2', region_name=region)
         running_instances = [r for r in ec2.instances.filter(Filters=filter_running)]
         exempt_instances = [x for x in ec2.instances.filter(Filters=filter_exempt)]
         stop_instances = [s for s in running_instances if s.id not in [x.id for x in exempt_instances]]
