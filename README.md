@@ -30,4 +30,5 @@ via `shutoff_tag_name` and `shutoff_tag_value`).
 
 ## Releases
 
+* 0.1.1: Terraform v0.12 ready.
 * 0.1: Initial release.
